@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign In {{ super }}{% endblock %}
+
+{% block body %}
+<form method="POST" action="{% url 'accounts:sign_in' %}">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="button-primary" value="Sign In">
+</form>
+{% endblock %}
