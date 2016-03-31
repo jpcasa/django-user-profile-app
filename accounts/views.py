@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -48,3 +48,9 @@ def sign_up(request):
             )
             return HttpResponseRedirect(reverse('home'))  # TODO: go to profile
     return render(request, 'accounts/sign_up.html', {'form': form})
+
+
+def sign_out(request):
+    logout(request)
+    messages.success(request, "You've been signed out. Come back soon!")
+    return HttpResponseRedirect(reverse('home'))
