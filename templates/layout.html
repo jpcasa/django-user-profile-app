@@ -54,7 +54,7 @@
                 <nav>
                     <ul class="circle--inline">
                         {% if not user.is_authenticated %}
-                            <li><a href="#">Sign Up</a></li>
+                            <li><a href="{% url 'accounts:sign_up' %}">Sign Up</a></li>
                             <li><a href="{% url 'accounts:sign_in' %}">Sign
                                 In</a></li>
                         {% else %}
