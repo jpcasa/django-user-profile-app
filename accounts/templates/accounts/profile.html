@@ -6,9 +6,10 @@
 {% block body %}
     <h1>Profile</h1>
     <div class="grid-20">
-        <a href="#">Edit Profile</a>
-        <a href="#">Edit Profile</a>
-        <a href="#">Edit Profile</a>
+        <ul>
+            <li><a href="{% url 'accounts:edit_profile' %}">Edit Profile</a></li>
+            <li><a href="{% url 'accounts:change_password' %}">Change Password</a></li>
+        </ul>
     </div>
     <div class="grid-80">
         {% if not profile.first_name %}
@@ -29,7 +30,7 @@
                 <p><span class="underline">Hobby</span>: {{ profile.hobby }}</p>
             </div>
             <div class="grid-100">
-                <p><span class="underline">Bio</span>: {{ profile.bio }}</p>
+                <p><span class="underline">Bio</span>: {{ profile.bio|safe }}</p>
             </div>
         {% endif %}
     </div>

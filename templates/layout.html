@@ -47,7 +47,7 @@
                     <ul class="circle--inline">
                         <li><a href="{% url 'home' %}">Home</a></li>
                         {% if user.is_authenticated %}
-                            <li><a href="#">here?</a></li>
+                            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
                         {% endif %}
                     </ul>
                 </nav>
