@@ -45,8 +45,10 @@
             <div class="circle--fluid--cell circle--fluid--primary">
                 <nav>
                     <ul class="circle--inline">
-                        <li><a href="#">nav</a></li>
-                        <li><a href="#">here?</a></li>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="#">here?</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>

@@ -1,11 +1,25 @@
 {% extends 'layout.html' %}
 {% block body %}
+  {% if user.is_authenticated %}
     <div class="grid-25">
-        nav here maybe?
+        <ul class="left-nav">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+        </ul>
     </div>
-    <div class="grid-75">
-        <h1>Welcome!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad amet assumenda beatae blanditiis, deserunt doloremque ea earum excepturi id, impedit ipsam magnam nulla obcaecati, quidem quis soluta tenetur vitae?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad amet assumenda beatae blanditiis, deserunt doloremque ea earum excepturi id, impedit ipsam magnam nulla obcaecati, quidem quis soluta tenetur vitae?</p>
+    {% endif %}
+    <div class="{% if user.is_authenticated %}grid-75{% else %}grid-100{% endif %}">
+        {% if user.is_authenticated %}
+            {% if profile.first_name %}
+              <h1>Welcome {{ profile.first_name }}!</h1>
+            {% endif %}
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad amet assumenda beatae blanditiis, deserunt doloremque ea earum excepturi id, impedit ipsam magnam nulla obcaecati, quidem quis soluta tenetur vitae?</p>
+            <a href="{% url 'accounts:profile' %}">My Profile</a>
+        {% else %}
+            <h1>Welcome!</h1>
+            <p>Register or login to start the fun!</p>
+            <a href="{% url 'accounts:sign_in' %}">Sign In</a>
+            <a href="{% url 'accounts:sign_up' %}">Sign Up</a>
+        {% endif %}
     </div>
 {% endblock %}

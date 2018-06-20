@@ -1,10 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 
+from . import models
+from . import forms
 
 def sign_in(request):
     form = AuthenticationForm()
@@ -54,3 +56,28 @@ def sign_out(request):
     logout(request)
     messages.success(request, "You've been signed out. Come back soon!")
     return HttpResponseRedirect(reverse('home'))
+
+
+def profile(request):
+    """Display User Profile"""
+    profile = request.user.profile
+    return render(request, 'accounts/profile.html', {
+        'profile': profile
+    })
+
+
+def edit_profile(request):
+    user = request.user
+    profile = get_object_or_404(models.Profile, user=user)
+    form = forms.ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = forms.ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Updated the Profile Successfully!")
+            return HttpResponseRedirect(reverse('accounts:profile'))
+
+    return render(request, 'accounts/edit_profile.html', {
+        'form': form
+    })
